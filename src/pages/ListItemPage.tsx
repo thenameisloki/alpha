@@ -36,13 +36,23 @@ export function ListItemPage() {
   const next = () => setCurrentStep((s) => Math.min(s + 1, 7));
   const prev = () => setCurrentStep((s) => Math.max(s - 1, 1));
 
-  const addPhoto = () => {
-    const sampleImages = [
-      'https://images.pexels.com/photos/19969445/pexels-photo-19969445.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
-      'https://images.pexels.com/photos/30413428/pexels-photo-30413428.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
-      'https://images.pexels.com/photos/2526025/pexels-photo-2526025.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
-    ];
-    setUploadedPhotos((prev) => [...prev, ...sampleImages.slice(prev.length, prev.length + 1)]);
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+    const remaining = 6 - uploadedPhotos.length;
+    const toAdd = Array.from(files).slice(0, remaining);
+    const readers = toAdd.map((file) => {
+      return new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    });
+    Promise.all(readers).then((dataUrls) => {
+      setUploadedPhotos((prev) => [...prev, ...dataUrls]);
+    });
+    e.target.value = '';
   };
 
   const toggleDelivery = (opt: string) => {
@@ -141,13 +151,19 @@ export function ListItemPage() {
                     </div>
                   ))}
                   {uploadedPhotos.length < 6 && (
-                    <button
-                      onClick={addPhoto}
-                      className="aspect-square rounded-2xl border-2 border-dashed border-navy-200 flex flex-col items-center justify-center text-navy-400 hover:border-emerald-500 hover:text-emerald-500 transition-colors"
+                    <label
+                      className="aspect-square rounded-2xl border-2 border-dashed border-navy-200 flex flex-col items-center justify-center text-navy-400 hover:border-emerald-500 hover:text-emerald-500 transition-colors cursor-pointer"
                     >
                       <Upload className="w-6 h-6 mb-2" />
                       <span className="text-xs font-semibold">Add photo</span>
-                    </button>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={handlePhotoUpload}
+                        className="hidden"
+                      />
+                    </label>
                   )}
                 </div>
               </div>

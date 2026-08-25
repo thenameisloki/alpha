@@ -1,6 +1,7 @@
 import { RouterProvider, useRouter } from '@/router';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
+import { CartWishlistProvider } from '@/lib/cart';
 import { HomePage } from '@/pages/HomePage';
 import { BrowsePage } from '@/pages/BrowsePage';
 import { ProductDetailPage } from '@/pages/ProductDetailPage';
@@ -8,6 +9,10 @@ import { ListItemPage } from '@/pages/ListItemPage';
 import { TrustPage } from '@/pages/TrustPage';
 import { HowItWorksPage } from '@/pages/HowItWorksPage';
 import { DashboardPage } from '@/pages/DashboardPage';
+import { CartPage } from '@/pages/CartPage';
+import { CheckoutPage } from '@/pages/CheckoutPage';
+import { PaymentPage } from '@/pages/PaymentPage';
+import { WishlistPage } from '@/pages/WishlistPage';
 
 function Pages() {
   const { route } = useRouter();
@@ -29,6 +34,14 @@ function Pages() {
       return <DashboardPage initialTab="borrower" />;
     case 'dashboard-lender':
       return <DashboardPage initialTab="lender" />;
+    case 'cart':
+      return <CartPage />;
+    case 'checkout':
+      return <CheckoutPage />;
+    case 'payment':
+      return <PaymentPage />;
+    case 'wishlist':
+      return <WishlistPage />;
     default:
       return <HomePage />;
   }
@@ -37,13 +50,15 @@ function Pages() {
 function App() {
   return (
     <RouterProvider>
-      <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
-        <Navbar />
-        <main className="flex-1">
-          <Pages />
-        </main>
-        <Footer />
-      </div>
+      <CartWishlistProvider>
+        <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
+          <Navbar />
+          <main className="flex-1">
+            <Pages />
+          </main>
+          <Footer />
+        </div>
+      </CartWishlistProvider>
     </RouterProvider>
   );
 }
