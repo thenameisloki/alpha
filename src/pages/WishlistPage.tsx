@@ -14,11 +14,11 @@ export function WishlistPage() {
     return (
       <div className="container-max px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center max-w-md mx-auto">
-          <div className="w-20 h-20 rounded-3xl bg-rose-50 flex items-center justify-center mx-auto mb-6">
+          <div className="w-20 h-20 rounded-3xl bg-rose-500/10 flex items-center justify-center mx-auto mb-6">
             <Heart className="w-10 h-10 text-rose-300" />
           </div>
-          <h1 className="text-2xl font-extrabold text-navy-900 mb-3">Your wishlist is empty</h1>
-          <p className="text-navy-500 mb-8">Tap the heart icon on any product to save it for later.</p>
+          <h1 className="text-2xl font-extrabold text-white mb-3 font-display">Your wishlist is empty</h1>
+          <p className="text-navy-300 mb-8">Tap the heart icon on any product to save it for later.</p>
           <button onClick={() => navigate({ name: 'browse' })} className="btn-emerald">
             Browse Products <ArrowRight className="w-4 h-4" />
           </button>
@@ -31,8 +31,8 @@ export function WishlistPage() {
     <div className="container-max px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-extrabold text-navy-900">My Wishlist</h1>
-          <p className="text-navy-500 mt-1">{wishlistProducts.length} saved {wishlistProducts.length === 1 ? 'item' : 'items'}</p>
+          <h1 className="text-3xl font-extrabold text-white font-display">My Wishlist</h1>
+          <p className="text-navy-300 mt-1">{wishlistProducts.length} saved {wishlistProducts.length === 1 ? 'item' : 'items'}</p>
         </div>
       </div>
 
@@ -42,7 +42,7 @@ export function WishlistPage() {
             <ProductCard product={product} />
             <button
               onClick={() => toggleWishlist(product.id)}
-              className="absolute -top-2 -right-2 w-8 h-8 rounded-xl bg-white shadow-card flex items-center justify-center text-rose-500 hover:bg-rose-50 transition-colors z-10"
+              className="absolute -top-2 -right-2 w-8 h-8 rounded-xl bg-navy-900 shadow-card flex items-center justify-center text-rose-500 hover:bg-rose-500/10 transition-colors z-10"
             >
               <Trash2 className="w-4 h-4" />
             </button>

@@ -33,7 +33,7 @@ export function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-[#F8FAFC] to-white">
+      <section className="relative overflow-hidden bg-gradient-to-b from-navy-950 via-navy-950 to-navy-900">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-emerald-500/5 blur-3xl" />
           <div className="absolute top-20 -left-40 w-96 h-96 rounded-full bg-accent-400/5 blur-3xl" />
@@ -42,18 +42,18 @@ export function HomePage() {
         <div className="container-max relative px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-20 lg:pb-24">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="animate-fade-up">
-              <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-700 mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-4 py-2 text-xs font-semibold text-emerald-400 mb-6">
                 <Sparkles className="w-3.5 h-3.5" />
                 Try it. Borrow it. Love it. Then buy it.
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-navy-900 leading-[1.1] tracking-tight mb-6">
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-6">
                 Don't buy it yet.
                 <br />
                 <span className="text-emerald-500">Borrow it first.</span>
               </h1>
 
-              <p className="text-lg text-navy-500 leading-relaxed mb-8 max-w-lg">
+              <p className="text-lg text-navy-300 leading-relaxed mb-8 max-w-lg">
                 Try products in real life before you spend your money. Borrow from people and businesses around you, discover what actually works for you, then buy with confidence.
               </p>
 
@@ -68,13 +68,13 @@ export function HomePage() {
               </div>
 
               <form onSubmit={handleSearch} className="relative max-w-lg">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-navy-300" />
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-navy-500" />
                 <input
                   type="text"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   placeholder="What do you want to try?"
-                  className="w-full rounded-2xl bg-white pl-14 pr-32 py-4 text-base text-navy-900 placeholder:text-navy-300 shadow-card ring-1 ring-navy-900/5 transition-all focus:ring-2 focus:ring-emerald-500/30 focus:outline-none"
+                  className="w-full rounded-2xl bg-navy-900 pl-14 pr-32 py-4 text-base text-white placeholder:text-navy-500 shadow-card ring-1 ring-navy-800 transition-all focus:ring-2 focus:ring-emerald-500/30 focus:outline-none"
                 />
                 <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 btn-emerald !px-5 !py-2.5">
                   Search
@@ -87,7 +87,7 @@ export function HomePage() {
                   <button
                     key={ex}
                     onClick={() => navigate({ name: 'browse', query: ex })}
-                    className="rounded-full bg-white px-3 py-1.5 text-xs font-medium text-navy-600 ring-1 ring-navy-900/10 hover:ring-emerald-500/30 hover:text-emerald-600 transition-all"
+                    className="rounded-full bg-navy-900 px-3 py-1.5 text-xs font-medium text-navy-200 ring-1 ring-navy-700 hover:ring-emerald-500/30 hover:text-emerald-400 transition-all"
                   >
                     {ex}
                   </button>
@@ -110,22 +110,22 @@ export function HomePage() {
                 ))}
               </div>
 
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-card-hover p-4 flex items-center gap-3 animate-float">
-                <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
-                  <Recycle className="w-5 h-5 text-emerald-600" />
+              <div className="absolute -bottom-4 -left-4 bg-navy-900 rounded-2xl shadow-card-hover p-4 flex items-center gap-3 animate-float">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                  <Recycle className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-navy-900">Less waste</p>
+                  <p className="text-xs font-bold text-white">Less waste</p>
                   <p className="text-[10px] text-navy-400">Sustainable borrowing</p>
                 </div>
               </div>
 
-              <div className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-card-hover p-4 flex items-center gap-3 animate-float" style={{ animationDelay: '1s' }}>
-                <div className="w-10 h-10 rounded-xl bg-accent-100 flex items-center justify-center">
-                  <Wallet className="w-5 h-5 text-accent-600" />
+              <div className="absolute -top-4 -right-4 bg-navy-900 rounded-2xl shadow-card-hover p-4 flex items-center gap-3 animate-float" style={{ animationDelay: '1s' }}>
+                <div className="w-10 h-10 rounded-xl bg-accent-500/10 flex items-center justify-center">
+                  <Wallet className="w-5 h-5 text-accent-400" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-navy-900">More savings</p>
+                  <p className="text-xs font-bold text-white">More savings</p>
                   <p className="text-[10px] text-navy-400">Try before you buy</p>
                 </div>
               </div>
@@ -133,7 +133,7 @@ export function HomePage() {
           </div>
 
           {/* Stats bar */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16 pt-12 border-t border-navy-900/5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16 pt-12 border-t border-navy-800">
             {[
               { value: '12,000+', label: 'Products listed', icon: Search },
               { value: '₹4.2Cr+', label: 'Saved by borrowers', icon: Wallet },
@@ -143,7 +143,7 @@ export function HomePage() {
               <div key={stat.label} className="text-center lg:text-left">
                 <div className="flex items-center gap-2 justify-center lg:justify-start mb-1">
                   <stat.icon className="w-4 h-4 text-emerald-500" />
-                  <span className="text-2xl font-extrabold text-navy-900">{stat.value}</span>
+                  <span className="text-2xl font-extrabold text-white">{stat.value}</span>
                 </div>
                 <p className="text-sm text-navy-400">{stat.label}</p>
               </div>
@@ -153,12 +153,12 @@ export function HomePage() {
       </section>
 
       {/* How It Works */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-navy-900">
         <div className="container-max">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">How It Works</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-900 mt-2 mb-4">Borrow in 4 simple steps</h2>
-            <p className="text-navy-500">From discovery to decision — a smarter way to shop.</p>
+            <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">How It Works</span>
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-4">Borrow in 4 simple steps</h2>
+            <p className="text-navy-300">From discovery to decision — a smarter way to shop.</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -167,15 +167,15 @@ export function HomePage() {
               return (
                 <div key={step.step} className="relative group">
                   <div className="card p-6 h-full hover:shadow-card-hover hover:-translate-y-1">
-                    <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center mb-5 group-hover:bg-emerald-500 transition-colors duration-300">
-                      <Icon className="w-7 h-7 text-emerald-600 group-hover:text-white transition-colors duration-300" />
+                    <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-5 group-hover:bg-emerald-500 transition-colors duration-300">
+                      <Icon className="w-7 h-7 text-emerald-400 group-hover:text-white transition-colors duration-300" />
                     </div>
-                    <span className="text-xs font-bold text-navy-300">{step.step}</span>
-                    <h3 className="text-lg font-bold text-navy-900 mt-1 mb-2">{step.title}</h3>
-                    <p className="text-sm text-navy-500 leading-relaxed">{step.description}</p>
+                    <span className="text-xs font-bold text-navy-500">{step.step}</span>
+                    <h3 className="font-display text-lg font-bold text-white mt-1 mb-2">{step.title}</h3>
+                    <p className="text-sm text-navy-300 leading-relaxed">{step.description}</p>
                   </div>
                   {i < howItWorksSteps.length - 1 && (
-                    <ChevronRight className="hidden lg:block absolute top-1/2 -right-4 -translate-y-1/2 w-6 h-6 text-navy-200" />
+                    <ChevronRight className="hidden lg:block absolute top-1/2 -right-4 -translate-y-1/2 w-6 h-6 text-navy-700" />
                   )}
                 </div>
               );
@@ -183,7 +183,7 @@ export function HomePage() {
           </div>
 
           <div className="mt-12 text-center">
-            <p className="text-xl font-bold text-navy-900">
+            <p className="text-xl font-bold text-white">
               Better decisions. <span className="text-emerald-500">Less waste.</span> <span className="text-accent-500">More savings.</span>
             </p>
           </div>
@@ -195,10 +195,10 @@ export function HomePage() {
         <div className="container-max">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Browse by Category</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-2">What are you looking for?</h2>
+              <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Browse by Category</span>
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white mt-2">What are you looking for?</h2>
             </div>
-            <button onClick={() => navigate({ name: 'browse' })} className="hidden sm:flex items-center gap-1 text-sm font-semibold text-emerald-600 hover:text-emerald-700">
+            <button onClick={() => navigate({ name: 'browse' })} className="hidden sm:flex items-center gap-1 text-sm font-semibold text-emerald-400 hover:text-emerald-300">
               View all <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -212,10 +212,10 @@ export function HomePage() {
                   onClick={() => navigate({ name: 'browse', category: cat.name })}
                   className="card group p-5 text-center hover:shadow-card-hover hover:-translate-y-1 hover:ring-2 hover:ring-emerald-500/20"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-navy-50 flex items-center justify-center mx-auto mb-3 group-hover:bg-emerald-500 transition-colors duration-300">
-                    <Icon className="w-6 h-6 text-navy-700 group-hover:text-white transition-colors duration-300" />
+                  <div className="w-12 h-12 rounded-2xl bg-navy-800 flex items-center justify-center mx-auto mb-3 group-hover:bg-emerald-500 transition-colors duration-300">
+                    <Icon className="w-6 h-6 text-navy-200 group-hover:text-white transition-colors duration-300" />
                   </div>
-                  <p className="text-sm font-bold text-navy-900 mb-0.5">{cat.name}</p>
+                  <p className="text-sm font-bold text-white mb-0.5">{cat.name}</p>
                   <p className="text-xs text-navy-400">{cat.count.toLocaleString('en-IN')} items</p>
                 </button>
               );
@@ -225,14 +225,14 @@ export function HomePage() {
       </section>
 
       {/* Featured Products */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-navy-900">
         <div className="container-max">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Featured Listings</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-2">Try these this week</h2>
+              <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Featured Listings</span>
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white mt-2">Try these this week</h2>
             </div>
-            <button onClick={() => navigate({ name: 'browse' })} className="hidden sm:flex items-center gap-1 text-sm font-semibold text-emerald-600 hover:text-emerald-700">
+            <button onClick={() => navigate({ name: 'browse' })} className="hidden sm:flex items-center gap-1 text-sm font-semibold text-emerald-400 hover:text-emerald-300">
               See all products <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -261,7 +261,7 @@ export function HomePage() {
         <div className="container-max relative">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Why Borrow First?</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold mt-2 mb-4">Why buy something you haven't tried?</h2>
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold mt-2 mb-4">Why buy something you haven't tried?</h2>
             <p className="text-navy-300">Real examples of how borrowing first leads to better decisions.</p>
           </div>
 
@@ -273,7 +273,7 @@ export function HomePage() {
                   <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-4">
                     <Icon className="w-6 h-6 text-emerald-400" />
                   </div>
-                  <h3 className="text-lg font-bold mb-2">{item.product}</h3>
+                  <h3 className="font-display text-lg font-bold mb-2">{item.product}</h3>
                   <p className="text-sm text-navy-300 leading-relaxed">{item.message}</p>
                 </div>
               );
@@ -282,9 +282,9 @@ export function HomePage() {
             {/* CTA card */}
             <div className="rounded-3xl bg-gradient-to-br from-emerald-500 to-emerald-600 p-6 flex flex-col justify-center items-center text-center hover:-translate-y-1 transition-transform">
               <TrendingUp className="w-10 h-10 mb-3" />
-              <h3 className="text-lg font-bold mb-2">Ready to try?</h3>
+              <h3 className="font-display text-lg font-bold mb-2">Ready to try?</h3>
               <p className="text-sm text-emerald-50 mb-4">Browse thousands of products available to borrow near you.</p>
-              <button onClick={() => navigate({ name: 'browse' })} className="rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-emerald-600 hover:bg-emerald-50 transition-colors">
+              <button onClick={() => navigate({ name: 'browse' })} className="rounded-xl bg-navy-900 px-5 py-2.5 text-sm font-semibold text-emerald-400 hover:bg-emerald-500/10 transition-colors">
                 Start exploring
               </button>
             </div>
@@ -295,17 +295,17 @@ export function HomePage() {
       {/* Borrow → Decide → Buy Feature */}
       <section className="section-padding">
         <div className="container-max">
-          <div className="rounded-4xl bg-gradient-to-br from-emerald-50 via-white to-accent-50 p-8 lg:p-12 overflow-hidden relative">
+          <div className="rounded-4xl bg-gradient-to-br from-emerald-500/10 via-navy-900 to-accent-500/10 p-8 lg:p-12 overflow-hidden relative">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <span className="badge bg-emerald-500 text-white mb-4">
                   <Sparkles className="w-3 h-3" />
                   Our signature feature
                 </span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-900 mb-4 leading-tight">
+                <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white mb-4 leading-tight">
                   Borrow → Decide → Buy
                 </h2>
-                <p className="text-lg text-navy-500 mb-6 leading-relaxed">
+                <p className="text-lg text-navy-300 mb-6 leading-relaxed">
                   Borrow a product, test it in your real life, and if you love it — buy it. Your borrowing cost is credited toward the purchase price. No wasted money, no buyer's remorse.
                 </p>
 
@@ -316,12 +316,12 @@ export function HomePage() {
                     { step: 'Buy', desc: 'Love it? Buy it — borrowing cost credited', icon: Wallet },
                   ].map((item) => (
                     <div key={item.step} className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-white shadow-soft flex items-center justify-center shrink-0">
-                        <item.icon className="w-5 h-5 text-emerald-600" />
+                      <div className="w-12 h-12 rounded-2xl bg-navy-900 shadow-soft flex items-center justify-center shrink-0">
+                        <item.icon className="w-5 h-5 text-emerald-400" />
                       </div>
                       <div>
-                        <p className="font-bold text-navy-900">{item.step}</p>
-                        <p className="text-sm text-navy-500">{item.desc}</p>
+                        <p className="font-bold text-white">{item.step}</p>
+                        <p className="text-sm text-navy-300">{item.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -334,25 +334,25 @@ export function HomePage() {
               </div>
 
               <div className="relative">
-                <div className="rounded-3xl bg-white shadow-card-hover p-6 max-w-sm mx-auto">
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-4 bg-navy-50">
+                <div className="rounded-3xl bg-navy-900 shadow-card-hover p-6 max-w-sm mx-auto">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-4 bg-navy-800">
                     <img src={products[0].images[0]} alt="" className="w-full h-full object-cover" />
                   </div>
-                  <p className="text-sm font-bold text-navy-900 mb-1">{products[0].name}</p>
+                  <p className="text-sm font-bold text-white mb-1">{products[0].name}</p>
                   <p className="text-xs text-navy-400 mb-4">{products[0].category} · {products[0].location}</p>
 
-                  <div className="rounded-2xl bg-navy-50 p-4 space-y-3">
+                  <div className="rounded-2xl bg-navy-800 p-4 space-y-3">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-navy-500">Borrow for 3 days</span>
-                      <span className="font-bold text-navy-900">₹{(products[0].pricePerDay * 3).toLocaleString('en-IN')}</span>
+                      <span className="text-navy-300">Borrow for 3 days</span>
+                      <span className="font-bold text-white">₹{(products[0].pricePerDay * 3).toLocaleString('en-IN')}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-navy-500">Estimated purchase price</span>
-                      <span className="font-bold text-navy-900">₹{products[0].purchasePrice.toLocaleString('en-IN')}</span>
+                      <span className="text-navy-300">Estimated purchase price</span>
+                      <span className="font-bold text-white">₹{products[0].purchasePrice.toLocaleString('en-IN')}</span>
                     </div>
-                    <div className="border-t border-navy-200 pt-3 flex items-center justify-between">
-                      <span className="text-sm font-semibold text-emerald-600">Your credit toward purchase</span>
-                      <span className="text-sm font-extrabold text-emerald-600">₹{(products[0].pricePerDay * 3).toLocaleString('en-IN')}</span>
+                    <div className="border-t border-navy-700 pt-3 flex items-center justify-between">
+                      <span className="text-sm font-semibold text-emerald-400">Your credit toward purchase</span>
+                      <span className="text-sm font-extrabold text-emerald-400">₹{(products[0].pricePerDay * 3).toLocaleString('en-IN')}</span>
                     </div>
                   </div>
 
@@ -367,25 +367,25 @@ export function HomePage() {
       </section>
 
       {/* Trust & Safety preview */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-navy-900">
         <div className="container-max">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Trust & Safety</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-900 mt-2 mb-4">Borrow with confidence</h2>
-            <p className="text-navy-500">Every transaction is protected. Every member is verified.</p>
+            <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Trust & Safety</span>
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-4">Borrow with confidence</h2>
+            <p className="text-navy-300">Every transaction is protected. Every member is verified.</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {trustBadges.slice(0, 6).map((badge) => {
               const Icon = (Icons as any)[badge.icon] as Icons.LucideIcon;
               return (
-                <div key={badge.title} className="flex gap-4 p-5 rounded-2xl bg-[#F8FAFC] hover:bg-emerald-50 transition-colors">
-                  <div className="w-12 h-12 rounded-2xl bg-white shadow-soft flex items-center justify-center shrink-0">
-                    <Icon className="w-6 h-6 text-emerald-600" />
+                <div key={badge.title} className="flex gap-4 p-5 rounded-2xl bg-navy-800/50 hover:bg-emerald-500/10 transition-colors">
+                  <div className="w-12 h-12 rounded-2xl bg-navy-900 shadow-soft flex items-center justify-center shrink-0">
+                    <Icon className="w-6 h-6 text-emerald-400" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-navy-900 mb-1">{badge.title}</h3>
-                    <p className="text-sm text-navy-500 leading-relaxed">{badge.description}</p>
+                    <h3 className="font-display font-bold text-white mb-1">{badge.title}</h3>
+                    <p className="text-sm text-navy-300 leading-relaxed">{badge.description}</p>
                   </div>
                 </div>
               );
@@ -413,7 +413,7 @@ export function HomePage() {
                 <Users className="w-3.5 h-3.5" />
                 Join 50,000+ members
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 max-w-2xl mx-auto leading-tight">
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 max-w-2xl mx-auto leading-tight">
                 Start borrowing smarter today
               </h2>
               <p className="text-navy-300 text-lg mb-8 max-w-xl mx-auto">

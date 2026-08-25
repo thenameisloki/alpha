@@ -1,6 +1,6 @@
 import { Logo } from './Navbar';
 import { useRouter, type Route } from '@/router';
-import { Mail, MapPin, Instagram, Twitter, Facebook, ArrowRight, Recycle, Heart } from 'lucide-react';
+import { Mail, MapPin, Instagram, Twitter, Facebook, ArrowRight, Recycle, Heart, ShoppingCart, Heart as WishIcon } from 'lucide-react';
 
 export function Footer() {
   const { navigate } = useRouter();
@@ -20,6 +20,8 @@ export function Footer() {
       links: [
         { label: 'Borrower Dashboard', route: { name: 'dashboard-borrower' } },
         { label: 'Lender Dashboard', route: { name: 'dashboard-lender' } },
+        { label: 'My Wishlist', route: { name: 'wishlist' } },
+        { label: 'My Cart', route: { name: 'cart' } },
         { label: 'Messages', route: { name: 'messages' } },
         { label: 'Sign In', route: { name: 'auth' } },
       ],
@@ -27,9 +29,9 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-gradient-to-b from-navy-900 to-navy-950 text-navy-100 mt-20 relative overflow-hidden">
+    <footer className="bg-gradient-to-b from-navy-900 to-navy-950 text-navy-100 mt-20 relative overflow-hidden border-t border-navy-800">
       <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-emerald-500/5 blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-violet-500/5 blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-sky-500/5 blur-3xl" />
 
       <div className="container-max relative px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -51,7 +53,7 @@ export function Footer() {
 
           {linkGroups.map((group) => (
             <div key={group.title}>
-              <h4 className="text-sm font-bold text-white mb-4">{group.title}</h4>
+              <h4 className="text-sm font-display font-bold text-white mb-4">{group.title}</h4>
               <ul className="space-y-3">
                 {group.links.map((link) => (
                   <li key={link.label}>
@@ -68,7 +70,7 @@ export function Footer() {
           ))}
 
           <div>
-            <h4 className="text-sm font-bold text-white mb-4">Stay in the loop</h4>
+            <h4 className="text-sm font-display font-bold text-white mb-4">Stay in the loop</h4>
             <p className="text-sm text-navy-300 mb-4">Get tips, new listings, and community stories.</p>
             <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
               <input
@@ -76,7 +78,7 @@ export function Footer() {
                 placeholder="Your email"
                 className="flex-1 rounded-xl bg-navy-800 px-4 py-2.5 text-sm text-white placeholder:text-navy-400 ring-1 ring-navy-700 focus:ring-emerald-500 focus:outline-none"
               />
-              <button className="rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 px-4 py-2.5 text-sm font-semibold text-white hover:from-emerald-600 hover:to-teal-600 transition-all">
+              <button className="rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 px-4 py-2.5 text-sm font-semibold text-white hover:from-emerald-400 hover:to-teal-400 transition-all">
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>

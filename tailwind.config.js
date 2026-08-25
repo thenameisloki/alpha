@@ -13,6 +13,7 @@ export default {
           500: '#3d4f7e',
           600: '#2a3866',
           700: '#1e2855',
+          750: '#191f48',
           800: '#161e3d',
           900: '#111827',
           950: '#0a0e1c',
@@ -139,7 +140,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Outfit', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'Outfit', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         '2xl': '1rem',
