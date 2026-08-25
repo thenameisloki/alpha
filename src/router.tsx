@@ -8,7 +8,13 @@ export type Route =
   | { name: 'trust' }
   | { name: 'dashboard-borrower' }
   | { name: 'dashboard-lender' }
-  | { name: 'how-it-works' };
+  | { name: 'how-it-works' }
+  | { name: 'auth' }
+  | { name: 'messages' }
+  | { name: 'cart' }
+  | { name: 'checkout' }
+  | { name: 'payment' }
+  | { name: 'wishlist' };
 
 interface RouterContextValue {
   route: Route;

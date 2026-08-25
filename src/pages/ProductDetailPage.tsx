@@ -2,18 +2,30 @@ import { useState } from 'react';
 import {
   Star, MapPin, CheckCircle2, Shield, ArrowRight, ArrowLeft,
   Calendar, Truck, Package, MessageCircle, Heart, Share2,
-  Check, BadgeCheck, Clock, Sparkles, Wallet,
+  Check, BadgeCheck, Clock, Sparkles, Wallet, ShoppingCart,
+  Mail, Phone, X, Loader2, User,
 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { products } from '@/data/products';
 import { ProductCard } from '@/components/ProductCard';
+import { useCartWishlist } from '@/lib/cart';
 
 export function ProductDetailPage({ productId }: { productId: string }) {
   const { navigate } = useRouter();
+  const { addToCart, toggleWishlist, isInWishlist } = useCartWishlist();
   const product = products.find(p => p.id === productId);
   const [activeImage, setActiveImage] = useState(0);
   const [borrowDays, setBorrowDays] = useState(3);
+  const [deliveryMethod, setDeliveryMethod] = useState('Pickup');
   const [showBuyOption, setShowBuyOption] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactName, setContactName] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
+  const [contactErrors, setContactErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [pendingAction, setPendingAction] = useState<'borrow' | 'buy' | null>(null);
 
   if (!product) {
     return (
@@ -29,9 +41,65 @@ export function ProductDetailPage({ productId }: { productId: string }) {
   const effectivePrice = product.purchasePrice - creditAmount;
   const relatedProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
 
+  const handleAddToCart = () => {
+    addToCart(product, borrowDays, deliveryMethod);
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2000);
+  };
+
+  const handleBorrowNow = () => {
+    setPendingAction('borrow');
+    setShowContactModal(true);
+  };
+
+  const handleBuyProduct = () => {
+    setPendingAction('buy');
+    setShowContactModal(true);
+  };
+
+  const validateContact = () => {
+    const errors: Record<string, string> = {};
+    if (!contactName.trim()) errors.name = 'Please enter your name';
+    if (!contactEmail.trim()) {
+      errors.email = 'Please enter your email';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
+      errors.email = 'Please enter a valid email address';
+    }
+    if (!contactPhone.trim()) {
+      errors.phone = 'Please enter your phone number';
+    } else if (!/^[+]?[0-9]{10,13}$/.test(contactPhone.replace(/[\s-]/g, ''))) {
+      errors.phone = 'Please enter a valid phone number (10-13 digits)';
+    }
+    setContactErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateContact()) return;
+    setSubmitting(true);
+    setTimeout(() => {
+      setSubmitting(false);
+      setShowContactModal(false);
+      addToCart(product, borrowDays, deliveryMethod);
+      const action = pendingAction;
+      setPendingAction(null);
+      setContactName('');
+      setContactEmail('');
+      setContactPhone('');
+      setContactErrors({});
+      navigate({ name: 'checkout' });
+    }, 800);
+  };
+
+  const closeContactModal = () => {
+    setShowContactModal(false);
+    setPendingAction(null);
+    setContactErrors({});
+  };
+
   return (
     <div className="container-max px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-      {/* Breadcrumb */}
       <button onClick={() => navigate({ name: 'browse', category: product.category })} className="flex items-center gap-1.5 text-sm text-navy-400 hover:text-navy-900 mb-6 transition-colors">
         <ArrowLeft className="w-4 h-4" />
         Back to {product.category}
@@ -55,8 +123,11 @@ export function ProductDetailPage({ productId }: { productId: string }) {
               )}
             </div>
             <div className="absolute top-4 right-4 flex gap-2">
-              <button className="w-9 h-9 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-navy-600 hover:text-error-500 transition-colors">
-                <Heart className="w-4 h-4" />
+              <button
+                onClick={() => toggleWishlist(product.id)}
+                className="w-9 h-9 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center transition-colors"
+              >
+                <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? 'fill-rose-500 text-rose-500' : 'text-navy-600 hover:text-rose-500'}`} />
               </button>
               <button className="w-9 h-9 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-navy-600 hover:text-navy-900 transition-colors">
                 <Share2 className="w-4 h-4" />
@@ -107,6 +178,15 @@ export function ProductDetailPage({ productId }: { productId: string }) {
           </div>
 
           <p className="text-navy-600 leading-relaxed mb-6">{product.description}</p>
+
+          {/* Tags */}
+          {product.tags && product.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-6">
+              {product.tags.map((tag) => (
+                <span key={tag} className="badge bg-navy-50 text-navy-500">#{tag}</span>
+              ))}
+            </div>
+          )}
 
           {/* Lender profile */}
           <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#F8FAFC] mb-6">
@@ -167,6 +247,24 @@ export function ProductDetailPage({ productId }: { productId: string }) {
               </div>
             </div>
 
+            {/* Delivery method selector */}
+            <div className="mb-4">
+              <label className="text-xs text-navy-300 mb-2 block">Delivery method</label>
+              <div className="flex gap-2">
+                {product.deliveryOptions.map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => setDeliveryMethod(opt)}
+                    className={`flex-1 rounded-xl py-2.5 text-xs font-semibold transition-all ${
+                      deliveryMethod === opt ? 'bg-emerald-500 text-white' : 'bg-navy-800 text-navy-300 hover:bg-navy-700'
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="flex items-center justify-between mb-4 pb-4 border-b border-navy-700">
               <span className="text-sm text-navy-300">Borrow for {borrowDays} {borrowDays === 1 ? 'day' : 'days'}</span>
               <span className="text-xl font-extrabold">₹{borrowCost.toLocaleString('en-IN')}</span>
@@ -177,10 +275,25 @@ export function ProductDetailPage({ productId }: { productId: string }) {
               <span className="text-sm font-semibold">₹{product.securityDeposit.toLocaleString('en-IN')}</span>
             </div>
 
-            <button className="btn-emerald w-full mb-3">
-              Borrow Now
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            <div className="flex gap-3 mb-3">
+              <button onClick={handleAddToCart} className="flex-1 rounded-xl bg-navy-800 px-4 py-3 text-sm font-semibold hover:bg-navy-700 transition-colors flex items-center justify-center gap-2">
+                {addedToCart ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-400" />
+                    Added to Cart!
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="w-4 h-4" />
+                    Add to Cart
+                  </>
+                )}
+              </button>
+              <button onClick={handleBorrowNow} className="flex-1 btn-emerald">
+                Borrow Now
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
 
             {/* Buy option */}
             <button
@@ -210,7 +323,10 @@ export function ProductDetailPage({ productId }: { productId: string }) {
                     <span className="font-extrabold text-emerald-400">₹{effectivePrice.toLocaleString('en-IN')}</span>
                   </div>
                 </div>
-                <button className="btn-emerald w-full">
+                <button
+                  onClick={handleBuyProduct}
+                  className="btn-emerald w-full"
+                >
                   Buy This Product
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -314,6 +430,101 @@ export function ProductDetailPage({ productId }: { productId: string }) {
           ))}
         </div>
       </div>
+
+      {/* Contact info modal */}
+      {showContactModal && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 animate-fade-in">
+          <div className="absolute inset-0 bg-navy-950/60 backdrop-blur-sm" onClick={closeContactModal} />
+          <div className="relative w-full max-w-md rounded-3xl bg-white shadow-card-hover p-6 lg:p-8 animate-scale-in">
+            <button onClick={closeContactModal} className="absolute top-4 right-4 w-9 h-9 rounded-xl bg-navy-50 flex items-center justify-center text-navy-400 hover:text-navy-900 transition-colors">
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center mb-5">
+              {pendingAction === 'buy' ? (
+                <Wallet className="w-7 h-7 text-emerald-600" />
+              ) : (
+                <ShoppingCart className="w-7 h-7 text-emerald-600" />
+              )}
+            </div>
+
+            <h2 className="text-xl font-extrabold text-navy-900 mb-1">
+              {pendingAction === 'buy' ? 'Buy this product' : 'Borrow this product'}
+            </h2>
+            <p className="text-sm text-navy-500 mb-6">
+              Enter your contact details so the lender can reach you about {product.name}.
+            </p>
+
+            <form onSubmit={handleContactSubmit} className="space-y-4">
+              <div>
+                <label className="text-sm font-semibold text-navy-700 mb-1.5 block">Full name</label>
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-navy-300" />
+                  <input
+                    type="text"
+                    value={contactName}
+                    onChange={(e) => setContactName(e.target.value)}
+                    placeholder="Your full name"
+                    className={`input-field pl-12 ${contactErrors.name ? 'border-error-400 focus:border-error-400 focus:ring-error-500/20' : ''}`}
+                  />
+                </div>
+                {contactErrors.name && <p className="text-xs text-error-500 mt-1">{contactErrors.name}</p>}
+              </div>
+
+              <div>
+                <label className="text-sm font-semibold text-navy-700 mb-1.5 block">Email address</label>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-navy-300" />
+                  <input
+                    type="email"
+                    value={contactEmail}
+                    onChange={(e) => setContactEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className={`input-field pl-12 ${contactErrors.email ? 'border-error-400 focus:border-error-400 focus:ring-error-500/20' : ''}`}
+                  />
+                </div>
+                {contactErrors.email && <p className="text-xs text-error-500 mt-1">{contactErrors.email}</p>}
+              </div>
+
+              <div>
+                <label className="text-sm font-semibold text-navy-700 mb-1.5 block">Phone number</label>
+                <div className="relative">
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-navy-300" />
+                  <input
+                    type="tel"
+                    value={contactPhone}
+                    onChange={(e) => setContactPhone(e.target.value)}
+                    placeholder="+91 98765 43210"
+                    className={`input-field pl-12 ${contactErrors.phone ? 'border-error-400 focus:border-error-400 focus:ring-error-500/20' : ''}`}
+                  />
+                </div>
+                {contactErrors.phone && <p className="text-xs text-error-500 mt-1">{contactErrors.phone}</p>}
+              </div>
+
+              <div className="rounded-2xl bg-navy-50 p-3 flex items-start gap-2">
+                <Shield className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <p className="text-xs text-navy-500">
+                  Your contact details are shared securely with the lender only. We never share your information with third parties.
+                </p>
+              </div>
+
+              <button type="submit" disabled={submitting} className="btn-emerald w-full disabled:opacity-60">
+                {submitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    {pendingAction === 'buy' ? 'Continue to Purchase' : 'Continue to Checkout'}
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Related products */}
       {relatedProducts.length > 0 && (

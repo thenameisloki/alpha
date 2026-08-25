@@ -26,13 +26,22 @@
     @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-navy-900 shadow-soft ring-1 ring-navy-900/10 transition-all duration-300 hover:ring-navy-900/20 hover:shadow-card active:scale-[0.98];
   }
   .btn-emerald {
-    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:bg-emerald-600 hover:shadow-card-hover active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:from-emerald-600 hover:to-teal-600 hover:shadow-glow active:scale-[0.98];
+  }
+  .btn-coral {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-coral-500 to-rose-500 px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:from-coral-600 hover:to-rose-600 hover:shadow-glow-coral active:scale-[0.98];
+  }
+  .btn-sky {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-500 px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:from-sky-600 hover:to-blue-600 hover:shadow-glow-sky active:scale-[0.98];
   }
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-semibold text-navy-600 transition-all duration-200 hover:bg-navy-50 hover:text-navy-900;
   }
   .card {
     @apply rounded-3xl bg-white shadow-card transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:shadow-card-hover hover:-translate-y-1;
   }
   .input-field {
     @apply w-full rounded-2xl border border-navy-900/10 bg-white px-4 py-3 text-sm text-navy-900 placeholder:text-navy-300 transition-all duration-200 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20;
@@ -45,6 +54,19 @@
   }
   .container-max {
     @apply mx-auto max-w-7xl;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500 bg-clip-text text-transparent;
+  }
+  .gradient-text-warm {
+    @apply bg-gradient-to-r from-coral-500 via-accent-500 to-accent-400 bg-clip-text text-transparent;
+  }
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl;
+  }
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
   }
 }
 
